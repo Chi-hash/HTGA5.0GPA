@@ -20,11 +20,22 @@ function updateCountdown() {
   const minutesEl = document.getElementById("cd-minutes");
   const secondsEl = document.getElementById("cd-seconds");
 
+  const miniDaysEl = document.getElementById("mini-days");
+  const miniHoursEl = document.getElementById("mini-hours");
+  const miniMinutesEl = document.getElementById("mini-minutes");
+  const miniSecondsEl = document.getElementById("mini-seconds");
+
   if (diff <= 0) {
     daysEl.textContent = "00";
     hoursEl.textContent = "00";
     minutesEl.textContent = "00";
     secondsEl.textContent = "00";
+    if (miniDaysEl) {
+      miniDaysEl.textContent = "00";
+      miniHoursEl.textContent = "00";
+      miniMinutesEl.textContent = "00";
+      miniSecondsEl.textContent = "00";
+    }
     activateBuyButtons();
     return;
   }
@@ -38,6 +49,13 @@ function updateCountdown() {
   hoursEl.textContent = pad(hours);
   minutesEl.textContent = pad(minutes);
   secondsEl.textContent = pad(seconds);
+
+  if (miniDaysEl) {
+    miniDaysEl.textContent = pad(days);
+    miniHoursEl.textContent = pad(hours);
+    miniMinutesEl.textContent = pad(minutes);
+    miniSecondsEl.textContent = pad(seconds);
+  }
 }
 
 function formatLaunchDate() {
@@ -103,25 +121,25 @@ modalBackdrop.addEventListener("click", closeModal);
 
 const form = document.getElementById('waitlistForm');
 const successMessage = document.getElementById('successMessage');
- 
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
- 
+
   const submitBtn = form.querySelector('button[type="submit"]');
   const originalLabel = submitBtn.textContent;
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting…';
- 
+
   const payload = {
     fullName: document.getElementById('fullName').value.trim(),
     phone: document.getElementById('phone').value.trim(),
     email: document.getElementById('email').value.trim(),
     submittedAt: new Date().toISOString(),
   };
- 
+
   try {
     if (WAITLIST_ENDPOINT) {
-      // Apps Script redirects can trigger false browser errors, so treat as fire-and-forget
+      // Fire-and-forget request to bypass redirect issues
       fetch(WAITLIST_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
@@ -134,7 +152,7 @@ form.addEventListener('submit', async (e) => {
       // Development logging
       console.log('Waitlist signup (no endpoint configured):', payload);
     }
- 
+
     form.reset();
     form.classList.add('hidden');
     successMessage.classList.remove('hidden');
@@ -147,6 +165,16 @@ form.addEventListener('submit', async (e) => {
 
 // INIT
 
+// Force scroll to top on refresh/load
+if (history.scrollRestoration) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, 50);
+});
 
 formatLaunchDate();
 updateCountdown();
@@ -163,3 +191,46 @@ if (header) {
     }
   });
 }
+
+// URL confirmation check
+function checkConfirmation() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const confirmStatus = urlParams.get('confirm');
+  const name = urlParams.get('name');
+
+  if (confirmStatus === 'success' || confirmStatus === 'already') {
+    const confirmNameEl = document.getElementById('confirmName');
+    if (confirmNameEl && name) {
+      confirmNameEl.textContent = decodeURIComponent(name);
+    }
+    
+    const confirmMessageEl = document.getElementById('confirmMessage');
+    if (confirmMessageEl && confirmStatus === 'already') {
+      confirmMessageEl.textContent = "You're already confirmed on the waitlist! Come back in:";
+    }
+    
+    const confirmModal = document.getElementById('confirmModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const closeBtn = document.getElementById('closeConfirmBtn');
+    
+    confirmModal.classList.remove('hidden');
+    confirmModal.classList.add('open');
+    modalBackdrop.classList.add('open');
+    document.body.style.overflow = "hidden";
+
+    const closeConfirmModal = () => {
+      confirmModal.classList.remove('open');
+      modalBackdrop.classList.remove('open');
+      document.body.style.overflow = "";
+      
+      // Clean URL query
+      const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+      window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+    };
+
+    closeBtn.addEventListener('click', closeConfirmModal);
+    modalBackdrop.addEventListener('click', closeConfirmModal);
+  }
+}
+
+checkConfirmation();

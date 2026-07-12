@@ -931,6 +931,94 @@ h2 {
   box-shadow: 0 8px 24px rgba(255, 82, 180, 0.15);
 }
 
+/*Confirmation Modal*/
+.confirm-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: 400px;
+  max-width: 90vw;
+  background: #1a0840;
+  border: 2px solid var(--primary);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1002;
+}
+.confirm-modal.open {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+.confirm-modal.hidden {
+  display: none;
+}
+.confirm-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+.confirm-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+}
+.confirm-message {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 320px;
+}
+.confirm-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
+  background: #250d4f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 20px;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 320px;
+}
+.mini-time {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.mini-time span {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--primary);
+}
+.mini-time label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mini-colon {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.2);
+}
+.confirm-suffix {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
 /*Responsive*/
 @media (max-width: 992px) {
   html {
