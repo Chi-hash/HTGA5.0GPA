@@ -352,8 +352,7 @@ img {
   width: 320px;
   height: 440px;
   border-radius: 10px;
-  background: linear-gradient(rgba(26, 8, 64, 0.4), rgba(26, 8, 64, 0.7)),
-    url("Assets/dummy resources/pexels-book-hut-440747141-19905625.jpg") no-repeat center center;
+  background: url("Assets/HTGA5GPA book cover.png") no-repeat center center; 
   background-size: cover;
   box-shadow:
     8px 12px 40px rgba(0, 0, 0, 0.5),
