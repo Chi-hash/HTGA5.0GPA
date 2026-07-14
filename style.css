@@ -1070,7 +1070,7 @@ h2 {
     max-width: 220px;
     height: auto;
     aspect-ratio: 320 / 440;
-    margin-bottom: 36px;
+    margin-bottom: 12px;
   }
   .book-cover {
     width: 100%;
@@ -1094,7 +1094,7 @@ h2 {
   .hero .subtitle {
     order: 4;
     font-size: 15px;
-    margin-top: 28px;
+    margin-top: 8px;
   }
   .hero .lead {
     order: 5;
