@@ -256,13 +256,30 @@
           </div>
           <div class="field">
             <label for="phone">Phone Number</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="+234 000 0000 000"
-              required
-            />
+            <div class="phone-input-group">
+              <button type="button" class="country-select-btn" id="countrySelectBtn">
+                <span class="selected-flag" id="selectedFlag">
+                  <img src="https://flagcdn.com/20x15/ng.png" class="flag-img" alt="Nigeria">
+                </span>
+                <span class="selected-code" id="selectedCode">+234</span>
+                <span class="dropdown-chevron">▼</span>
+              </button>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="080 0000 0000"
+                required
+              />
+              <div class="country-dropdown" id="countryDropdown">
+                <div class="country-search-wrap">
+                  <input type="text" class="country-search-input" id="countrySearchInput" placeholder="Search country..." autocomplete="off">
+                </div>
+                <div class="country-list" id="countryList">
+                  <!-- Generated dynamically -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="field">
