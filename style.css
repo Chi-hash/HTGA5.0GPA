@@ -293,7 +293,7 @@ img {
 .lead {
   color: var(--muted);
   max-width: 460px;
-  line-height: 1.65;
+  line-height: 2.05;
 }
 
 .hero-ctas {
@@ -561,11 +561,13 @@ h2 {
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 .about-text p {
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 2.15;
+  text-align: justify;
+  text-justify: inter-word;
 }
 .about-list {
   flex: 1.1;
@@ -678,11 +680,13 @@ h2 {
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 .author-text p {
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 2.15;
+  text-align: justify;
+  text-justify: inter-word;
 }
 .quote-card {
   background: #250d4f;
@@ -701,7 +705,9 @@ h2 {
 .quote-body {
   font-style: italic;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 2.15;
+  text-align: justify;
+  text-justify: inter-word;
 }
 .quote-attr {
   color: var(--primary);
@@ -1291,7 +1297,7 @@ h2 {
   .hero .lead {
     order: 5;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.95;
   }
   .hero-ctas {
     order: 6;
@@ -1301,7 +1307,7 @@ h2 {
     justify-content: center;
     gap: 8px;
     width: 100%;
-    margin-top: 28px;
+    margin-top: 10px;
   }
   .hero-ctas .btn {
     flex: 1;
@@ -1329,6 +1335,11 @@ h2 {
     min-width: 0;
     text-align: center;
   }
+  .about-text p,
+  .author-text p,
+  .quote-body {
+    text-align: justify;
+  }
   .author-card {
     flex: none;
     width: 100%;
@@ -1349,7 +1360,7 @@ h2 {
     max-width: 400px;
   }
   .quote-card {
-    text-align: center;
+    text-align: left;
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
