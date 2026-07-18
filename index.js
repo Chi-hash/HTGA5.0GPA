@@ -415,39 +415,78 @@ function checkConfirmation() {
   const urlParams = new URLSearchParams(window.location.search);
   const confirmStatus = urlParams.get('confirm');
   const name = urlParams.get('name');
+  const confirmToken = urlParams.get('confirm_token');
 
-  if (confirmStatus === 'success' || confirmStatus === 'already') {
-    const confirmNameEl = document.getElementById('confirmName');
-    if (confirmNameEl && name) {
-      confirmNameEl.textContent = decodeURIComponent(name);
-    }
-    
-    const confirmMessageEl = document.getElementById('confirmMessage');
-    if (confirmMessageEl && confirmStatus === 'already') {
-      confirmMessageEl.textContent = "You're already confirmed on the waitlist! Come back in:";
-    }
-    
-    const confirmModal = document.getElementById('confirmModal');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const closeBtn = document.getElementById('closeConfirmBtn');
-    
+  const confirmModal = document.getElementById('confirmModal');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const closeBtn = document.getElementById('closeConfirmBtn');
+  const confirmNameEl = document.getElementById('confirmName');
+  const confirmMessageEl = document.getElementById('confirmMessage');
+
+  const openModal = () => {
     confirmModal.classList.remove('hidden');
     confirmModal.classList.add('open');
     modalBackdrop.classList.add('open');
     document.body.style.overflow = "hidden";
+  };
 
-    const closeConfirmModal = () => {
-      confirmModal.classList.remove('open');
-      modalBackdrop.classList.remove('open');
-      document.body.style.overflow = "";
-      
-      // Clean URL query
-      const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-      window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
-    };
+  const closeConfirmModal = () => {
+    confirmModal.classList.remove('open');
+    modalBackdrop.classList.remove('open');
+    document.body.style.overflow = "";
+    
+    // Clean URL query
+    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+  };
 
-    closeBtn.addEventListener('click', closeConfirmModal);
-    modalBackdrop.addEventListener('click', closeConfirmModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeConfirmModal);
+  if (modalBackdrop) modalBackdrop.addEventListener('click', closeConfirmModal);
+
+  // Fallback: Direct redirect from Google Apps Script
+  if (confirmStatus === 'success' || confirmStatus === 'already') {
+    if (confirmNameEl && name) {
+      confirmNameEl.textContent = decodeURIComponent(name);
+    }
+    if (confirmMessageEl) {
+      if (confirmStatus === 'already') {
+        confirmMessageEl.textContent = "You're already confirmed on the waitlist! Come back in:";
+      } else {
+        confirmMessageEl.textContent = "You have successfully been added to the waitlist. Come back in:";
+      }
+    }
+    openModal();
+  } 
+  // Primary: Clean custom domain link (fetch verification in background)
+  else if (confirmToken) {
+    if (confirmNameEl) confirmNameEl.textContent = "Waitlist";
+    if (confirmMessageEl) confirmMessageEl.textContent = "Verifying your waitlist spot...";
+    openModal();
+
+    fetch(`${WAITLIST_ENDPOINT}?confirm=${encodeURIComponent(confirmToken)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success' || data.status === 'already') {
+          if (confirmNameEl && data.name) {
+            confirmNameEl.textContent = data.name;
+          }
+          if (confirmMessageEl) {
+            if (data.status === 'already') {
+              confirmMessageEl.textContent = "You're already confirmed on the waitlist! Come back in:";
+            } else {
+              confirmMessageEl.textContent = "You have successfully been added to the waitlist. Come back in:";
+            }
+          }
+        } else {
+          if (confirmNameEl) confirmNameEl.textContent = "Oops!";
+          if (confirmMessageEl) confirmMessageEl.textContent = "This confirmation link is invalid or has expired.";
+        }
+      })
+      .catch(err => {
+        console.error("Verification fetch error:", err);
+        if (confirmNameEl) confirmNameEl.textContent = "Connection Error";
+        if (confirmMessageEl) confirmMessageEl.textContent = "Could not reach verification server. Please try again.";
+      });
   }
 }
 
