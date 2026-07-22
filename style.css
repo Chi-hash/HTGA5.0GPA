@@ -561,11 +561,11 @@ h2 {
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 .about-text p {
   color: var(--muted);
-  line-height: 2.15;
+  line-height: 1.6;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -680,11 +680,11 @@ h2 {
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 .author-text p {
   color: var(--muted);
-  line-height: 2.15;
+  line-height: 1.6;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -705,7 +705,7 @@ h2 {
 .quote-body {
   font-style: italic;
   color: var(--muted);
-  line-height: 2.15;
+  line-height: 1.6;
   text-align: justify;
   text-justify: inter-word;
 }
