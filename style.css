@@ -136,6 +136,30 @@ img {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: #fff;
   box-shadow: 0 4px 24px rgba(230, 25, 140, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: rotate(25deg);
+  animation: btnShimmer 4s infinite ease-in-out;
+  pointer-events: none;
+}
+@keyframes btnShimmer {
+  0% { left: -70%; }
+  20% { left: 140%; }
+  100% { left: 140%; }
 }
 .btn-primary:hover {
   transform: translateY(-2px);
@@ -1214,6 +1238,18 @@ h2 {
   font-size: 14px;
   color: var(--muted);
   margin-top: 4px;
+}
+
+/*Scroll Reveal*/
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /*Responsive*/
