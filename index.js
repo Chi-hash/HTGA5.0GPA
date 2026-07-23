@@ -1,12 +1,9 @@
 
 // Config
-const LAUNCH_DATE = new Date(Date.now() + 5000); // 5s demo countdown
+const LAUNCH_DATE = new Date("2026-08-15T00:00:00"); // Launch: August 15, 2026
 const WAITLIST_ENDPOINT = "https://script.google.com/macros/s/AKfycbxH13j1yDpFszvXR9AhU5wtPAVxGzac5ZODHGQX4LrPrfGorPCgu1l-n424-Ya8iJ2JWg/exec";
 
-
-// COUNTDOWN
-
-
+// Countdown
 function pad(n) {
   return String(n).padStart(2, "0");
 }
@@ -64,10 +61,7 @@ function formatLaunchDate() {
     "Official launch date: " + LAUNCH_DATE.toLocaleDateString("en-US", options);
 }
 
-
-// BUY BUTTON STATE
-
-
+// Buy buttons
 function activateBuyButtons() {
   [
     document.getElementById("buyBtn"),
@@ -80,7 +74,6 @@ function activateBuyButtons() {
     btn.innerHTML = "Buy Now";
   });
 
-  // Hide instruction hint
   const hintEl = document.querySelector(".hint");
   if (hintEl) {
     hintEl.style.display = "none";
@@ -356,18 +349,15 @@ form.addEventListener('submit', async (e) => {
 
   try {
     if (WAITLIST_ENDPOINT) {
-      // Fire-and-forget request to bypass redirect issues
+      // Send form payload
       fetch(WAITLIST_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(payload),
       }).catch((err) => {
-        console.warn('Waitlist fetch reported an error (often a false alarm with Apps Script):', err);
+        console.warn('Waitlist fetch notice:', err);
       });
-    } else {
-      // Development logging
-      console.log('Waitlist signup (no endpoint configured):', payload);
     }
 
     form.reset();
@@ -380,9 +370,9 @@ form.addEventListener('submit', async (e) => {
 });
 
 
-// INIT
+// Initialization
 
-// Force scroll to top on refresh/load
+// Reset scroll
 if (history.scrollRestoration) {
   history.scrollRestoration = 'manual';
 }
@@ -398,7 +388,7 @@ formatLaunchDate();
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Header scrolled class toggle
+// Sticky header
 const header = document.querySelector(".site-header");
 if (header) {
   window.addEventListener("scroll", () => {
@@ -410,7 +400,7 @@ if (header) {
   });
 }
 
-// URL confirmation check
+// Confirmation handler
 function checkConfirmation() {
   const urlParams = new URLSearchParams(window.location.search);
   const confirmStatus = urlParams.get('confirm');
@@ -435,7 +425,7 @@ function checkConfirmation() {
     modalBackdrop.classList.remove('open');
     document.body.style.overflow = "";
     
-    // Clean URL query
+    // Reset URL
     const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
     window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
   };
@@ -443,7 +433,7 @@ function checkConfirmation() {
   if (closeBtn) closeBtn.addEventListener('click', closeConfirmModal);
   if (modalBackdrop) modalBackdrop.addEventListener('click', closeConfirmModal);
 
-  // Fallback: Direct redirect from Google Apps Script
+  // Direct redirect fallback
   if (confirmStatus === 'success' || confirmStatus === 'already') {
     if (confirmNameEl && name) {
       confirmNameEl.textContent = decodeURIComponent(name);
@@ -457,7 +447,7 @@ function checkConfirmation() {
     }
     openModal();
   } 
-  // Primary: Clean custom domain link (fetch verification in background)
+  // Token verification
   else if (confirmToken) {
     if (confirmNameEl) confirmNameEl.textContent = "Waitlist";
     if (confirmMessageEl) confirmMessageEl.textContent = "Verifying your waitlist spot...";
@@ -491,3 +481,5 @@ function checkConfirmation() {
 }
 
 checkConfirmation();
+
+

@@ -302,8 +302,11 @@ img {
   gap: 16px;
   flex-wrap: wrap;
 }
-.lock {
-  font-size: 15px;
+.lock-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: currentColor;
 }
 
 .social-proof {
@@ -1372,6 +1375,7 @@ h2 {
     height: 2px;
     background: var(--primary);
   }
+  
   .site-footer {
     flex-direction: column;
     text-align: center;
