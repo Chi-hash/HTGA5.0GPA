@@ -679,12 +679,24 @@ h2 {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 20px;
+  margin-top: 14px;
 }
 .author-role {
-  color: var(--primary);
-  font-size: 13px;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(247, 148, 29, 0.15), rgba(255, 82, 180, 0.15));
+  border: 1px solid rgba(247, 148, 29, 0.45);
+  color: #ffc266;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-top: 8px;
   margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(247, 148, 29, 0.18);
+  text-transform: uppercase;
 }
 .author-facts {
   display: flex;
