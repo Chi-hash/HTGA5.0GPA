@@ -2,6 +2,7 @@
 // Config
 const LAUNCH_DATE = new Date("2026-08-15T00:00:00"); // Launch: August 15, 2026
 const WAITLIST_ENDPOINT = "https://script.google.com/macros/s/AKfycbxH13j1yDpFszvXR9AhU5wtPAVxGzac5ZODHGQX4LrPrfGorPCgu1l-n424-Ya8iJ2JWg/exec";
+const SELAR_URL = "https://selar.com/9785l558y8";
 
 // Countdown
 function pad(n) {
@@ -81,33 +82,20 @@ function activateBuyButtons() {
 }
 
 const buyBtn = document.getElementById("buyBtn");
-const platformModal = document.getElementById("platformModal");
-const modalBackdrop = document.getElementById("modalBackdrop");
 
-function openModal() {
-  platformModal.classList.remove("hidden");
-  platformModal.classList.add("open");
-  modalBackdrop.classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-
-function closeModal() {
-  platformModal.classList.remove("open");
-  modalBackdrop.classList.remove("open");
-  document.body.style.overflow = "";
+function redirectToSelar() {
+  window.open(SELAR_URL, "_blank", "noopener,noreferrer");
 }
 
 buyBtn.addEventListener("click", () => {
   if (buyBtn.disabled) return;
-  openModal();
+  redirectToSelar();
 });
 
 document.getElementById("buyBtnHero").addEventListener("click", () => {
   if (document.getElementById("buyBtnHero").disabled) return;
-  openModal();
+  redirectToSelar();
 });
-
-modalBackdrop.addEventListener("click", closeModal);
 
 
 // Phone Country Selector
