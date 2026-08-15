@@ -73,7 +73,10 @@ img {
   flex-wrap: wrap;
   gap: 16px;
   background: #3e177b;
-  transition: padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    padding 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .site-header.scrolled {
@@ -93,7 +96,9 @@ img {
   width: auto;
   filter: brightness(0) invert(1);
   opacity: 0.95;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 .logo-signature:hover .signature-img {
   opacity: 1;
@@ -157,9 +162,15 @@ img {
   pointer-events: none;
 }
 @keyframes btnShimmer {
-  0% { left: -70%; }
-  20% { left: 140%; }
-  100% { left: 140%; }
+  0% {
+    left: -70%;
+  }
+  20% {
+    left: 140%;
+  }
+  100% {
+    left: 140%;
+  }
 }
 .btn-primary:hover {
   transform: translateY(-2px);
@@ -307,7 +318,6 @@ img {
   transform: rotate(-1deg);
 }
 
-
 .subtitle {
   font-family: var(--font-heading);
   font-weight: 600;
@@ -433,7 +443,7 @@ img {
 .book-rule {
   width: 32px;
   height: 2px;
-  background-color:  #f7711d;
+  background-color: #f7711d;
 }
 .book-subtitle {
   font-size: 12px;
@@ -599,7 +609,7 @@ h2 {
   max-width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 12px;
-  background-image: url('Assets/Author Image (1).jpg');
+  background-image: url("Assets/Author Image (1).jpg");
   background-size: cover;
   background-position: center top;
 }
@@ -613,7 +623,11 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, rgba(247, 148, 29, 0.15), rgba(255, 82, 180, 0.15));
+  background: linear-gradient(
+    135deg,
+    rgba(247, 148, 29, 0.15),
+    rgba(255, 82, 180, 0.15)
+  );
   border: 1px solid rgba(247, 148, 29, 0.45);
   color: #ffc266;
   font-size: 12px;
@@ -708,7 +722,9 @@ h2 {
   gap: 10px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 1001;
 }
 .platform-modal.open {
@@ -750,7 +766,9 @@ h2 {
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 12px 14px;
   border-radius: 10px;
-  transition: background 0.18s ease, border-color 0.18s ease;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 .platform-row:hover {
   background: #2e1065;
@@ -820,16 +838,13 @@ h2 {
   box-shadow: 0 8px 24px rgba(255, 82, 180, 0.15);
 }
 
-
-  color: var(--muted);
-  margin-top: 4px;
-}
-
 /*Scroll Reveal*/
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 .reveal.revealed {
@@ -996,7 +1011,7 @@ h2 {
     height: 2px;
     background: var(--primary);
   }
-  
+
   .site-footer {
     flex-direction: column;
     text-align: center;
