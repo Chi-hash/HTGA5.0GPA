@@ -1,8 +1,8 @@
 function trackButtonClick(label) {
-  if (typeof window.va === "function") {
-    window.va("event", {
-      name: "buy_now_click",
-      button: label,
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "buy_now_click", {
+      button_name: label,
+      page_location: window.location.href,
     });
   }
 }
