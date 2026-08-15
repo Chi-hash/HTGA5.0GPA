@@ -1,3 +1,18 @@
+function trackButtonClick(label) {
+  if (typeof window.va === "function") {
+    window.va("event", {
+      name: "buy_now_click",
+      button: label,
+    });
+  }
+}
+
+document.querySelectorAll("[data-track]").forEach((button) => {
+  button.addEventListener("click", () => {
+    trackButtonClick(button.dataset.track);
+  });
+});
+
 // Initialization
 
 // Reset scroll
